@@ -1,0 +1,39 @@
+<h6>Dashboard</h6>
+<h3>Welcome {{name}}</h3>
+<p>Here are Your Diary</p>
+{{#if diaries}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each diaries}}
+            <tr>
+                <td><a href="/diaries/{{_id}}">{{title}}</a></td>
+                <td>{{formatDate createdAt 'D MMMM YYYY, HH:mm:ss'}}</td>
+                <td><span class="dash-status">{{status}}</span></td>
+                <td>
+                    <a href="/diaries/edit/{{_id}}" class="btn btn-float">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                    <form action="/diaries/{{_id}}" method="POST" id="delete-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn red" onclick="return confirm('Are you sure want to delete?')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+{{else}}
+<p>You have not create any diary</p>
+{{/if}}
